@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 13:51:28 by zu                #+#    #+#             */
-/*   Updated: 2021/12/19 17:16:22 by hmeriann         ###   ########.fr       */
+/*   Updated: 2021/12/22 17:56:36 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_prepare_simulation(t_sets *cond)
 	while (i <= cond->philo_count)
 	{
 		table.order = i;
-		table.left_fork = i;
+		// table.left_fork = i;
 		printf("philo #%d\n", table.order);
 		i++;
 	}

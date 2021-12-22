@@ -6,13 +6,13 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:25 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/19 15:03:14 by hmeriann         ###   ########.fr       */
+/*   Updated: 2021/12/22 17:57:31 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_sets	*ft_init_settings(int argc, char **argv, t_sets *table)
+t_sets	*ft_init_settings(int argc, char **argv, t_sets *settings)
 {
 	if (check_numeric(argv))
 	{
@@ -21,21 +21,21 @@ t_sets	*ft_init_settings(int argc, char **argv, t_sets *table)
 	}
 	else
 	{
-		table->philo_count = ft_atoi(argv[1]);
-		if (table->philo_count == 0)
+		settings->philo_count = ft_atoi(argv[1]);
+		if (settings->philo_count == 0)
 		{
 			printf("There should be at least one philosopher.\n");
 			return (NULL);
 		}
-		table->forks_count = table->philo_count;
-		table->time_to_die = ft_atoi(argv[2]);
-		table->time_to_eat = ft_atoi(argv[3]);
-		table->time_to_sleep = ft_atoi(argv[4]);
+		settings->forks_count = settings->philo_count;
+		settings->time_to_die = ft_atoi(argv[2]);
+		settings->time_to_eat = ft_atoi(argv[3]);
+		settings->time_to_sleep = ft_atoi(argv[4]);
 		if (argc == 6)
-			table->eatings_count = ft_atoi(argv[5]);
+			settings->eatings_count = ft_atoi(argv[5]);
 		else
-			table->eatings_count = -1;
-		printf("philo_count = %d, time_to_die = %d, time_to_eat = %d, time_to_sleep = %d, eatings = %d\n", table->philo_count, table->time_to_die, table->time_to_eat, table->time_to_sleep, table->eatings_count);
-		return (table);
+			settings->eatings_count = -1;
+		printf("philo_count = %d, time_to_die = %d, time_to_eat = %d, time_to_sleep = %d, eatings = %d\n", settings->philo_count, settings->time_to_die, settings->time_to_eat, settings->time_to_sleep, settings->eatings_count);
+		return (settings);
 	}
 }
