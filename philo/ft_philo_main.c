@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:06:48 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/22 17:56:12 by hmeriann         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:03:47 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ int	main(int argc, char **argv)
 	{
 		printf("Conditions quantity is correct\n");
 		if ((ft_init_settings(argc, argv, &settings)) == NULL)
-			return (0);
-		// create the struct of a phils and give an order# to each of phils
+			return (1);
+		// get start time
+		// create array of philosophers, assign ordered forks to the philofophers
+		// create array of mutexes, associate each mutex to each philosopher
+		// create thread called waiter
 		ft_prepare_simulation(&settings);
 	}
 	return (0);

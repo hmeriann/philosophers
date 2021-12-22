@@ -6,11 +6,17 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 13:51:28 by zu                #+#    #+#             */
-/*   Updated: 2021/12/22 17:56:36 by hmeriann         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:05:45 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/*
+initialize philosophers structure
+allocate memory for array of philosophers
+give their forks an order
+*/
 
 void	ft_prepare_simulation(t_sets *cond)
 {
