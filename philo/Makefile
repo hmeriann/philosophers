@@ -1,7 +1,7 @@
 NAME =	philo
 
 SRC =	ft_philo_main.c	ft_philo_utils.c	ft_init_settings.c	ft_prepare_simulation.c\
-		ft_check_args.c	ft_create_philos.c	\
+		ft_check_args.c	ft_create_philos.c	ft_time.c\
 
 OBJ =	$(SRC:.c=.o)
 FLAGS =	-g -Wall -Wextra -Werror

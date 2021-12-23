@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:25 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/19 15:00:58 by hmeriann         ###   ########.fr       */
+/*   Updated: 2021/12/23 23:39:22 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	ft_check_args(int argc, char **argv, t_sets *cond)
 		cond->time_to_eat = ft_atoi(argv[3]);
 		cond->time_to_sleep = ft_atoi(argv[4]);
 		if (argc == 6)
-			cond->eatings_count = ft_atoi(argv[5]);
+			cond->should_eat_times = ft_atoi(argv[5]);
 		else
-			cond->eatings_count = -1;
-		printf("philo_count = %d, time_to_die = %d, time_to_eat = %d, time_to_sleep = %d, eatings = %d\n", cond->philo_count, cond->time_to_die, cond->time_to_eat, cond->time_to_sleep, cond->eatings_count);
+			cond->should_eat_times = -1;
+		printf("philo_count = %d, time_to_die = %d, time_to_eat = %d, time_to_sleep = %d, eatings = %d\n", cond->philo_count, cond->time_to_die, cond->time_to_eat, cond->time_to_sleep, cond->should_eat_times);
 	}
 }

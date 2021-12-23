@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_settings.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:25 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/22 18:00:10 by hmeriann         ###   ########.fr       */
+/*   Updated: 2021/12/23 23:39:22 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ t_sets	*ft_init_settings(int argc, char **argv, t_sets *settings)
 		settings->time_to_eat = ft_atoi(argv[3]);
 		settings->time_to_sleep = ft_atoi(argv[4]);
 		if (argc == 6)
-			settings->eatings_count = ft_atoi(argv[5]);
+			settings->should_eat_times = ft_atoi(argv[5]);
 		else
-			settings->eatings_count = -1;
-		printf("philo_count = %d, time_to_die = %d, time_to_eat = %d, time_to_sleep = %d, eatings = %d\n", settings->philo_count, settings->time_to_die, settings->time_to_eat, settings->time_to_sleep, settings->eatings_count);
+			settings->should_eat_times = -1;
+		printf("philo_count = %d, time_to_die = %d, time_to_eat = %d, time_to_sleep = %d, eatings = %d\n", settings->philo_count, settings->time_to_die, settings->time_to_eat, settings->time_to_sleep, settings->should_eat_times);
 		return (settings);
 	}
 }
