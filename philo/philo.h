@@ -6,7 +6,7 @@
 /*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/23 23:39:41 by zu               ###   ########.fr       */
+/*   Updated: 2021/12/25 15:38:21 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@
 typedef struct s_phs
 {
 	int				order;
+	int				order_l_fork;
+	int				order_r_fork;
+	int				already_ate;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 }	t_phs;
 
 typedef struct s_sets
 {
-	int		philo_count;
+	int		philos_count;
 	int		forks_count;
 	int		time_to_die;
 	int		time_to_eat;
@@ -36,6 +39,7 @@ typedef struct s_sets
 	t_phs	*philo;
 	int		simulation_end;
 	int		did_eat_times;
+	long	time;
 }	t_sets;
 
 int		ft_atoi(const char *str);
@@ -45,5 +49,6 @@ int		check_numeric(char **argv);
 t_sets	*ft_init_settings(int argc, char **argv, t_sets *table);
 void	ft_prepare_simulation(t_sets *table);
 long	ft_get_time_ms(void);
+int		ft_init_phils(t_sets settings);
 
 #endif
