@@ -6,7 +6,7 @@
 /*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 23:20:49 by zu                #+#    #+#             */
-/*   Updated: 2021/12/25 15:24:03 by zu               ###   ########.fr       */
+/*   Updated: 2021/12/26 14:22:28 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,7 @@ long	ft_get_time_ms(void)
 	struct timeval	t;
 
 	gettimeofday(&t, NULL);
-	return (t.tv_sec * 1000 + t.tv_usec / 1000);
+	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
+
+// int		ft_delta_time()

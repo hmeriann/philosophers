@@ -6,7 +6,7 @@
 /*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/25 15:38:21 by zu               ###   ########.fr       */
+/*   Updated: 2021/12/29 00:00:25 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,35 +20,40 @@
 
 typedef struct s_phs
 {
+	int				pos_in_arr;
 	int				order;
 	int				order_l_fork;
 	int				order_r_fork;
 	int				already_ate;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*mutex_left_f;
+	pthread_mutex_t	*mutex_right_f;
+	pthread_t		*phils_thread;
+	long			last_eat_time;
 }	t_phs;
 
 typedef struct s_sets
 {
-	int		philos_count;
-	int		forks_count;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		should_eat_times;
-	t_phs	*philo;
-	int		simulation_end;
-	int		did_eat_times;
-	long	time;
+	int				philos_count;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				should_eat_times;
+	t_phs			*philo;
+	pthread_mutex_t	*forks;
+	int				simulation_end;
+	int				did_eat_times;
+	long			time;
 }	t_sets;
 
 int		ft_atoi(const char *str);
 size_t	ft_strlen(char *str);
 int		ft_csearch(char *haystack, char needle, size_t len);
 int		check_numeric(char **argv);
-t_sets	*ft_init_settings(int argc, char **argv, t_sets *table);
+t_sets	*ft_save_settings(int argc, char **argv, t_sets *table);
 void	ft_prepare_simulation(t_sets *table);
 long	ft_get_time_ms(void);
-int		ft_init_phils(t_sets settings);
+int		ft_init_phils(t_sets *settings, t_phs *phils);
+int		ft_init_forks(t_sets *settings, t_phs *phils);
+int		ft_phils_threads(t_sets *settings, t_phs *phils);
 
 #endif

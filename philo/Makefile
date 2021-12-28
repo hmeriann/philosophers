@@ -1,10 +1,10 @@
 NAME =	philo
 
-SRC =	ft_philo_main.c	ft_philo_utils.c	ft_init_settings.c	ft_prepare_simulation.c\
-		ft_create_philos.c	ft_time.c\
+SRC =	ft_philo_main.c	ft_philo_utils.c	ft_save_settings.c	ft_phils_threads.c\
+		ft_time.c	ft_inits.c\
 
 OBJ =	$(SRC:.c=.o)
-FLAGS =	-g -Wall -Wextra -Werror
+FLAGS =	-g -Wall -Wextra -Werror -fsanitize=thread
 
 all:	$(NAME)
 

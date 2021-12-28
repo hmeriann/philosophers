@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_settings.c                                 :+:      :+:    :+:   */
+/*   ft_save_settings.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:25 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/25 15:26:34 by zu               ###   ########.fr       */
+/*   Updated: 2021/12/28 10:24:13 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	check_numeric(char **argv)
 	return (0);
 }
 
-t_sets	*ft_init_settings(int argc, char **argv, t_sets *settings)
+t_sets	*ft_save_settings(int argc, char **argv, t_sets *settings)
 {
 	if (check_numeric(argv))
 	{
@@ -72,7 +72,6 @@ t_sets	*ft_init_settings(int argc, char **argv, t_sets *settings)
 			printf("There should be at least one philosopher.\n");
 			return (NULL);
 		}
-		settings->forks_count = settings->philos_count;
 		settings->time_to_die = ft_atoi(argv[2]);
 		settings->time_to_eat = ft_atoi(argv[3]);
 		settings->time_to_sleep = ft_atoi(argv[4]);
@@ -87,6 +86,7 @@ t_sets	*ft_init_settings(int argc, char **argv, t_sets *settings)
 		}
 		else
 			settings->should_eat_times = -1;
+		settings->time = ft_get_time_ms();
 		return (settings);
 	}
 }

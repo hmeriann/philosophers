@@ -6,7 +6,7 @@
 /*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:06:48 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/25 15:31:01 by zu               ###   ########.fr       */
+/*   Updated: 2021/12/28 21:04:27 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	main(int argc, char **argv)
 {
-	t_sets	settings;
+	t_sets			settings;
+	t_phs			*phils;
 
 	if (argc <= 4 || argc >= 7)
 	{
@@ -22,16 +23,26 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	printf("Arguments quantity is correct\n");
-	if ((ft_init_settings(argc, argv, &settings)) == NULL)
-		return (1);
-	// get start time
-	settings.time = ft_get_time_ms();
-	printf("START time is %lu\n", (ft_get_time_ms() - settings.time));
-	if ((ft_init_phils(settings)))
+	if ((ft_save_settings(argc, argv, &settings)) == NULL)
 		return (1);
 	// create array of philosophers, assign ordered forks to the philofophers
+	phils = malloc(sizeof(t_phs) * settings.philos_count);
+	if (!phils)
+		return (1);
+	if (ft_init_phils(&settings, phils))
+		return (1);
 	// create array of mutexes, associate each mutex to each philosopher
+	if (ft_init_forks(&settings, phils))
+	{
+		free(phils);
+		return (1);
+	}
+	//create phils threads
+	if (ft_phils_threads(&settings, phils))
+	{
+		free(phils);
+		return (1);
+	}
 	// create thread called waiter
-	// ft_prepare_simulation(&settings);
 	return (0);
 }
