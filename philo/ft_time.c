@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_time.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 23:20:49 by zu                #+#    #+#             */
-/*   Updated: 2021/12/26 14:22:28 by zu               ###   ########.fr       */
+/*   Updated: 2021/12/29 18:11:56 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,9 @@ long	ft_get_time_ms(void)
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
 
-// int		ft_delta_time()
+// int	ft_make_time_ms(t_phs *phils)
+// {
+// 	struct timeval	t_curr;
+
+
+// }

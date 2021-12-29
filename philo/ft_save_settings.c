@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_save_settings.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:25 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/28 10:24:13 by zu               ###   ########.fr       */
+/*   Updated: 2021/12/29 18:29:31 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_sets	*ft_save_settings(int argc, char **argv, t_sets *settings)
 		}
 		else
 			settings->should_eat_times = -1;
-		settings->time = ft_get_time_ms();
+		// settings->time = ft_get_time_ms();
 		return (settings);
 	}
 }

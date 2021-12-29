@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/29 00:00:25 by zu               ###   ########.fr       */
+/*   Updated: 2021/12/29 18:05:11 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <pthread.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <unistd.h>
 
 typedef struct s_phs
 {
@@ -29,6 +30,7 @@ typedef struct s_phs
 	pthread_mutex_t	*mutex_right_f;
 	pthread_t		*phils_thread;
 	long			last_eat_time;
+	struct s_sets	*settings;
 }	t_phs;
 
 typedef struct s_sets
