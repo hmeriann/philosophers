@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/30 19:02:36 by hmeriann         ###   ########.fr       */
+/*   Updated: 2021/12/30 19:17:43 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ int		ft_get_time_ms(void);
 int		ft_init_phils(t_sets *settings, t_phs *phils);
 int		ft_init_forks(t_sets *settings, t_phs *phils);
 int		ft_phils_threads(t_sets *settings, t_phs *phils);
-void	ft_make_time_to_eat_ms(int time);
+void	ft_my_sleep_ms(int time);
 
 #endif
