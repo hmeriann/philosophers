@@ -6,13 +6,13 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 23:20:49 by zu                #+#    #+#             */
-/*   Updated: 2021/12/29 18:48:15 by hmeriann         ###   ########.fr       */
+/*   Updated: 2021/12/30 19:00:57 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	ft_get_time_ms(void)
+int	ft_get_time_ms(void)
 {
 	struct timeval	t;
 

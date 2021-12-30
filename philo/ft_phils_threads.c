@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 13:51:28 by zu                #+#    #+#             */
-/*   Updated: 2021/12/29 18:51:44 by hmeriann         ###   ########.fr       */
+/*   Updated: 2021/12/30 19:01:13 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static void	*ft_simulation(void *anything)
 			thing->last_eat_time = ft_get_time_ms();
 			thing->already_ate += 1;
 			//сообщение, что он взял вилки и ест - 3 сообщения
-			ft_print_status((int)(ft_get_time_ms() - thing->settings->time), thing->order, );
-			printf("%d", (int)(ft_get_time_ms() - thing->settings->time));
+			// ft_print_status((int)(ft_get_time_ms() - thing->settings->time), thing->order, );
+			printf("curr_time 1 = %d\n", (ft_get_time_ms() - thing->settings->time));
 
 			ft_make_time_to_eat_ms(thing->settings->time_to_eat);
-			printf("%d\n", (int)(ft_get_time_ms() - thing->settings->time));
+			printf("curr time 2 = %d\n", (ft_get_time_ms() - thing->settings->time));
 			curr_time = ft_get_time_ms();
 			// printf("%d\n", (int)(thing->last_eat_time - thing->settings->time));
 			pthread_mutex_unlock(thing->mutex_left_f);

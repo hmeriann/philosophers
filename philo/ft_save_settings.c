@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:25 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/29 18:29:31 by hmeriann         ###   ########.fr       */
+/*   Updated: 2021/12/30 19:03:34 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,36 +57,31 @@ int	check_numeric(char **argv)
 	return (0);
 }
 
-t_sets	*ft_save_settings(int argc, char **argv, t_sets *settings)
+int	ft_save_settings(int argc, char **argv, t_sets *settings)
 {
 	if (check_numeric(argv))
 	{
-		printf("Conditions should be only unsigned int\n");
-		return (NULL);
+		printf("Arguments should be only unsigned int\n");
+		return (1);
 	}
 	else
 	{
 		settings->philos_count = ft_atoi(argv[1]);
-		if (settings->philos_count == 0)
-		{
-			printf("There should be at least one philosopher.\n");
-			return (NULL);
-		}
 		settings->time_to_die = ft_atoi(argv[2]);
 		settings->time_to_eat = ft_atoi(argv[3]);
 		settings->time_to_sleep = ft_atoi(argv[4]);
 		if (argc == 6)
-		{
 			settings->should_eat_times = ft_atoi(argv[5]);
-			if (settings->should_eat_times == 0)
-			{
-				printf("Eatings quantity should be more than 0.\n");
-				return (NULL);
-			}
-		}
 		else
 			settings->should_eat_times = -1;
 		// settings->time = ft_get_time_ms();
-		return (settings);
+		if (!settings->should_eat_times || !settings->time_to_die || \
+			!settings->time_to_eat || !settings->time_to_sleep || \
+			!settings->philos_count)
+		{
+			printf("Arguments should be more than zero\n");
+			return (0);
+		}
+		return (0);
 	}
 }

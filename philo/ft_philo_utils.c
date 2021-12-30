@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_philo_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:20:28 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/11/20 11:02:38 by zu               ###   ########.fr       */
+/*   Updated: 2021/12/30 18:47:28 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_atoi(const char *str)
 			sign = 1;
 	while (str[i] != '\0')
 	{
-		if (str[i] >= '0' && str[i] <= '9')
+		if (ft_isdigit(str[i]))
 		{
 			// if (max_min_handling(res, sign) != 1)
 			// 	return (max_min_handling(res, sign));

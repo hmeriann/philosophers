@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_philo_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:06:48 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/28 21:04:27 by zu               ###   ########.fr       */
+/*   Updated: 2021/12/30 19:03:08 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	printf("Arguments quantity is correct\n");
-	if ((ft_save_settings(argc, argv, &settings)) == NULL)
+	if (ft_save_settings(argc, argv, &settings))
 		return (1);
 	// create array of philosophers, assign ordered forks to the philofophers
 	phils = malloc(sizeof(t_phs) * settings.philos_count);
