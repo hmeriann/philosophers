@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/30 19:17:43 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/02 23:21:39 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+
+# define FORK	1
+# define EAT	2
+# define SLEEP	3
+# define THINK	4
+# define DIE	5
 
 typedef struct s_phs
 {
@@ -42,6 +48,7 @@ typedef struct s_sets
 	int				should_eat_times;
 	t_phs			*philo;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	*print;
 	int				simulation_end;
 	int				did_eat_times;
 	int				time;
@@ -58,5 +65,11 @@ int		ft_init_phils(t_sets *settings, t_phs *phils);
 int		ft_init_forks(t_sets *settings, t_phs *phils);
 int		ft_phils_threads(t_sets *settings, t_phs *phils);
 void	ft_my_sleep_ms(int time);
+void	ft_exit(int ret, t_phs *phils);
+void	ft_print_state(t_phs *curr_phil, int state);
+void	ft_phil_eats(t_phs	*curr_phil);
+int		ft_forks_destroy(t_sets	*settings);
+int		ft_watcher(t_phs *phils);
+void	*ft_watching(void *phil);
 
 #endif

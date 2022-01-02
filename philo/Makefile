@@ -1,10 +1,10 @@
 NAME =	philo
 
 SRC =	ft_philo_main.c	ft_philo_utils.c	ft_save_settings.c	ft_phils_threads.c\
-		ft_time.c	ft_inits.c\
+		ft_time.c	ft_inits.c	ft_phil_eats.c ft_watching.c\
 
 OBJ =	$(SRC:.c=.o)
-FLAGS =	-g -Wall -Wextra -Werror -fsanitize=thread
+FLAGS =	-g -Wall -Wextra -Werror -fsanitize=address
 
 all:	$(NAME)
 

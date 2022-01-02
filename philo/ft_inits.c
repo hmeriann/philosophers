@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_inits.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 15:00:11 by zu                #+#    #+#             */
-/*   Updated: 2021/12/29 18:30:35 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/02 20:45:11 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,18 @@ int	ft_init_forks(t_sets *settings, t_phs *phils)
 	pthread_mutex_t	*forks;
 
 	forks = malloc(sizeof(pthread_mutex_t) * settings->philos_count);
-	if (!forks)
+	settings->print = malloc(sizeof(pthread_mutex_t) * 1);
+	if (!forks || !(settings->print))
 		return (1);
 	i = 0;
 	while (i < settings->philos_count)
 	{
-		if (pthread_mutex_init(&(forks[i]), NULL))
+		if (pthread_mutex_init(&(forks[i]), NULL) || \
+			pthread_mutex_init(settings->print, NULL))
 		{
 			printf("pthread_mutex_init error\n");
 			free(forks);
+			free(settings->print);
 			return (1);
 		}
 		i++;

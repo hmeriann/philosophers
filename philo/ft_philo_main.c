@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_philo_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:06:48 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/30 19:58:54 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/02 21:19:30 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@ void	ft_exit(int ret, t_phs *phils)
 {
 	if (ret == 1)
 		free(phils);
+}
+
+int	ft_forks_destroy(t_sets	*settings)
+{
+	int	i;
+
+	i = 0;
+	while (i < settings->philos_count)
+		pthread_mutex_destroy(&(settings->forks[i]));
+	free(settings->print);
+	pthread_mutex_destroy(settings->print);
+	printf("destroy\n");
+	return (0);
 }
 
 int	main(int argc, char **argv)

@@ -3,47 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   ft_phils_threads.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 13:51:28 by zu                #+#    #+#             */
-/*   Updated: 2021/12/30 20:01:04 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/02 23:36:54 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	*ft_simulation(void *anything)
+void	ft_print_state(t_phs *curr_phil, int state)
 {
-	t_phs	*thing;
 	int		time_spent;
 
-	thing = (t_phs *)anything;
+	if (pthread_mutex_lock((curr_phil->settings->print)) == 0)
+	{
+		time_spent = ft_get_time_ms() - curr_phil->settings->time;
+		if (state == FORK)
+			printf("%d ms philosopher #%d has taken a fork\n", \
+				time_spent, curr_phil->order);
+		if (state == EAT)
+			printf("%d ms philosopher #%d is eating\n", \
+				time_spent, curr_phil->order);
+		if (state == SLEEP)
+			printf("%d ms philosopher #%d is sleeping\n", \
+				time_spent, curr_phil->order);
+		if (state == THINK)
+			printf("%d ms philosopher #%d is thinking\n", \
+				time_spent, curr_phil->order);
+		if (state == DIE)
+		{
+			time_spent = ft_get_time_ms() - curr_phil->settings->time;
+			printf("%d ms philosopher #%d died\n", \
+				time_spent, curr_phil->order);
+		}
+		pthread_mutex_unlock((curr_phil->settings->print));
+	}
+	else
+		pthread_mutex_unlock((curr_phil->settings->print));
+}
+
+static void	*ft_simulation(void *phil)
+{
+	t_phs	*curr_phil;
+	int		eat_times;
+
+	curr_phil = (t_phs *)phil;
+	eat_times = curr_phil->settings->should_eat_times;
 	while (1)
 	{
-		if (pthread_mutex_lock(thing->mutex_left_f) == 0 && \
-			pthread_mutex_lock(thing->mutex_right_f) == 0)
+		if (pthread_mutex_lock(curr_phil->mutex_left_f) == 0 && \
+			pthread_mutex_lock(curr_phil->mutex_right_f) == 0)
 		{
-			thing->last_eat_time = ft_get_time_ms();
-			thing->already_ate += 1;
-			//сообщение, что он взял вилки и ест - 3 сообщения
-			// ft_print_status((int)(ft_get_time_ms() - thing->settings->time), thing->order, );
-			time_spent = ft_get_time_ms() - thing->settings->time;
-			printf("%d ms philosopher #%d is took a fork\n", time_spent, thing->order);
-			time_spent = ft_get_time_ms() - thing->settings->time;
-			printf("%d ms philosopher #%d is took a fork\n", time_spent, thing->order);
-			time_spent = ft_get_time_ms() - thing->settings->time;
-			printf("%d ms philosopher #%d is eating\n", time_spent, thing->order);
-			ft_my_sleep_ms(thing->settings->time_to_eat);
-			pthread_mutex_unlock(thing->mutex_left_f);
-			pthread_mutex_unlock(thing->mutex_right_f);
-			printf("%d ms philosopher #%d is sleeping\n", time_spent, thing->order);
-			// printf("%d\n", (int)(thing->last_eat_time - thing->settings->time));
-			//спит
-			//думает
-			// printf("simulation phil #%d last time eat %ld already ate %d\n", thing->order, (thing->last_eat_time - thing->settings->time), thing->already_ate);
-			if (thing->already_ate == 3)
-				break ;
+			curr_phil->last_eat_time = ft_get_time_ms();
+			curr_phil->already_ate += 1;
+			ft_phil_eats(curr_phil);
+			pthread_mutex_unlock(curr_phil->mutex_left_f);
+			pthread_mutex_unlock(curr_phil->mutex_right_f);
 		}
+		ft_my_sleep_ms(curr_phil->settings->time_to_eat);
+		ft_print_state(curr_phil, SLEEP);
+		ft_my_sleep_ms(curr_phil->settings->time_to_sleep);
+		ft_print_state(curr_phil, THINK);
 	}
 	return (0);
 }
@@ -68,9 +89,14 @@ int	ft_phils_threads(t_sets *settings, t_phs *phils)
 	i = 0;
 	while (i < settings->philos_count)
 	{
-		if (pthread_join(phils_thread[i], NULL))
+		if (pthread_detach(phils_thread[i]))
 			return (1);
 		i++;
 	}
+	if (ft_watcher(phils) != 0)
+		ft_exit(1, phils);
+	if (ft_forks_destroy(settings) != 0)
+		ft_exit(1, phils);
+	free(phils_thread);
 	return (0);
 }
