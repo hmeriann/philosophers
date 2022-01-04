@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_inits.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 15:00:11 by zu                #+#    #+#             */
-/*   Updated: 2022/01/04 15:57:49 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/04 23:59:23 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	ft_init_phils(t_sets *settings, t_phs *phils)
 		phils[i].order_r_fork = (phils[i].pos_in_arr + 1) % settings->philos_count;
 		phils[i].already_ate = 0;
 		// phils[i].last_eat_time = settings->time;
+		phils[i].is_dead = 0;
 		phils[i].settings = settings;
 		i++;
 	}
