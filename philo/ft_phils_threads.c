@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 13:51:28 by zu                #+#    #+#             */
-/*   Updated: 2022/01/04 15:59:54 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:27:47 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,8 @@ void	ft_print_state(t_phs *curr_phil, int state)
 			printf("%d ms philosopher #%d is thinking\n", \
 				time_spent, curr_phil->order);
 		if (state == DIE)
-		{
-			time_spent = ft_get_time_ms() - curr_phil->settings->time;
 			printf("%d ms philosopher #%d died\n", \
 				time_spent, curr_phil->order);
-		}
 		pthread_mutex_unlock((curr_phil->settings->print));
 	}
 	else
@@ -62,52 +59,55 @@ static void	*ft_simulation(void *phil)
 		ft_print_state(curr_phil, SLEEP);
 		ft_my_sleep_ms(curr_phil->settings->time_to_sleep);
 		ft_print_state(curr_phil, THINK);
-		if (curr_phil->already_ate == curr_phil->settings->should_eat_times)
-		{
-			printf(">>> philosopher #%d already ate %d times\n", \
-				curr_phil->order, curr_phil->already_ate);
-			break ;
-		}
+		// if (curr_phil->already_ate == curr_phil->settings->should_eat_times)
+		// {
+		// 	printf(">>> philosopher #%d already ate %d times\n", \
+		// 		curr_phil->order, curr_phil->already_ate);
+		// 	break ;
+		// }
 	}
-	return (0);
+	return (NULL);
 }
 
 int	ft_threads(t_sets *settings, t_phs *phils)
 {
 	int			i;
-	int			j;
 	pthread_t	*phils_thread;
 
 	i = 0;
-	j = 0;
 	phils_thread = malloc(sizeof(pthread_t) * settings->philos_count);
 	if (!phils_thread)
-		return (1);
+		return (MALERR);
 	while (i < settings->philos_count)
 	{
 		if (pthread_create(&phils_thread[i], NULL, \
 			ft_simulation, (void *)&phils[i]))
-			return (1);
-		usleep(10);
+			return (THRERR);
+		usleep(1);
 		i++;
 	}
-	while (j < settings->philos_count)
+	i = 0;
+	while (i < settings->philos_count)
 	{
-		if (pthread_detach(phils_thread[j]))
-			return (1);
-		j++;
+		if (pthread_detach(phils_thread[i]))
+			return (THRERR);
+		i++;
 	}
 	settings->phs_threads = phils_thread;
 	return (0);
 }
 
-int	ft_table(t_sets *settings, t_phs *phils)
+int	ft_at_the_table(t_sets *settings, t_phs *phils)
 {
+	int	err_code;
+
 	settings->time = ft_get_time_ms();
-	if (ft_threads(settings, phils) != 0)
-		return (THRERR);
-	if (ft_watcher(phils) != 0)
-		return (THRERR);
+	err_code = ft_threads(settings, phils);
+	if (err_code)
+		return (err_code);
+	(err_code = ft_watcher(phils));
+	if (err_code)
+		return (err_code);
 	free(settings->phs_threads);
 	if (ft_forks_destroy(settings) != 0)
 		return (FORERR);

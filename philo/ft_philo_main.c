@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:06:48 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/04 15:57:14 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:23:54 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int argc, char **argv)
 	err_code = ft_init_forks(&settings, phils);
 	if (err_code)
 		return (ft_print_err(err_code));
-	err_code = ft_table(&settings, phils);
+	err_code = ft_at_the_table(&settings, phils);
 	if (err_code)
 		return (ft_print_err(err_code));
 	return (0);
