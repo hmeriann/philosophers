@@ -6,39 +6,11 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 13:51:28 by zu                #+#    #+#             */
-/*   Updated: 2022/01/04 16:27:47 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:37:54 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	ft_print_state(t_phs *curr_phil, int state)
-{
-	int		time_spent;
-
-	if (pthread_mutex_lock((curr_phil->settings->print)) == 0)
-	{
-		time_spent = ft_get_time_ms() - curr_phil->settings->time;
-		if (state == FORK)
-			printf("%d ms philosopher #%d has taken a fork\n", \
-				time_spent, curr_phil->order);
-		if (state == EAT)
-			printf("%d ms philosopher #%d is eating\n", \
-				time_spent, curr_phil->order);
-		if (state == SLEEP)
-			printf("%d ms philosopher #%d is sleeping\n", \
-				time_spent, curr_phil->order);
-		if (state == THINK)
-			printf("%d ms philosopher #%d is thinking\n", \
-				time_spent, curr_phil->order);
-		if (state == DIE)
-			printf("%d ms philosopher #%d died\n", \
-				time_spent, curr_phil->order);
-		pthread_mutex_unlock((curr_phil->settings->print));
-	}
-	else
-		pthread_mutex_unlock((curr_phil->settings->print));
-}
 
 static void	*ft_simulation(void *phil)
 {

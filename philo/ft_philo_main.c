@@ -6,17 +6,11 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:06:48 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/04 16:23:54 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:37:32 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	ft_exit(int ret, t_phs *phils)
-{
-	if (ret == 1)
-		free(phils);
-}
 
 int	ft_forks_destroy(t_sets	*settings)
 {

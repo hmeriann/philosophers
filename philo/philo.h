@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/04 16:23:54 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:37:41 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int		ft_init_phils(t_sets *settings, t_phs *phils);
 int		ft_init_forks(t_sets *settings, t_phs *phils);
 int		ft_at_the_table(t_sets *settings, t_phs *phils);
 void	ft_my_sleep_ms(int time);
-void	ft_exit(int ret, t_phs *phils);
 void	ft_print_state(t_phs *curr_phil, int state);
 void	ft_phil_eats(t_phs	*curr_phil);
 int		ft_forks_destroy(t_sets	*settings);
