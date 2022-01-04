@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/02 23:21:39 by zu               ###   ########.fr       */
+/*   Updated: 2022/01/04 16:01:07 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@
 # define SLEEP	3
 # define THINK	4
 # define DIE	5
+# define ARGERR	-1
+# define UNSERR	-2
+# define ZERERR	-3
+# define MUTERR	-4
+# define MALERR	-5
+# define PHIERR	-6
+# define FORERR	-7
+# define THRERR	-8
 
 typedef struct s_phs
 {
@@ -52,9 +60,11 @@ typedef struct s_sets
 	int				simulation_end;
 	int				did_eat_times;
 	int				time;
+	pthread_t		*phs_threads;
 }	t_sets;
 
 int		ft_atoi(const char *str);
+int		ft_print_err(int err_code);
 size_t	ft_strlen(char *str);
 int		ft_csearch(char *haystack, char needle, size_t len);
 int		check_numeric(char **argv);
@@ -63,7 +73,7 @@ void	ft_prepare_simulation(t_sets *table);
 int		ft_get_time_ms(void);
 int		ft_init_phils(t_sets *settings, t_phs *phils);
 int		ft_init_forks(t_sets *settings, t_phs *phils);
-int		ft_phils_threads(t_sets *settings, t_phs *phils);
+int		ft_table(t_sets *settings, t_phs *phils);
 void	ft_my_sleep_ms(int time);
 void	ft_exit(int ret, t_phs *phils);
 void	ft_print_state(t_phs *curr_phil, int state);

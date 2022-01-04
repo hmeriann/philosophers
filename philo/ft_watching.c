@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_watching.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 21:26:58 by zu                #+#    #+#             */
-/*   Updated: 2022/01/02 23:48:41 by zu               ###   ########.fr       */
+/*   Updated: 2022/01/04 15:59:03 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_monitor(t_phs *curr_phil, int phils_count, int i)
 		return (1);
 	}
 	if (ft_eat_checker(curr_phil, phils_count) && \
-		curr_phil->settings->should_eat_times)
+		curr_phil->settings->should_eat_times != -1)
 	{
 		if (curr_phil[phils_count - 1].already_ate >= \
 			curr_phil->settings->should_eat_times)
@@ -71,8 +71,8 @@ int	ft_watcher(t_phs *phils)
 	pthread_t	watcher;
 
 	if (pthread_create(&watcher, NULL, ft_watching, (void *)phils))
-		return (1);
+		return (THRERR);
 	if (pthread_join(watcher, NULL))
-		return (1);
+		return (THRERR);
 	return (0);
 }

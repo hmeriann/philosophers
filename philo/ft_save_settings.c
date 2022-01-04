@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_save_settings.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:25 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/02 10:59:51 by zu               ###   ########.fr       */
+/*   Updated: 2022/01/04 15:55:35 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ int	check_numeric(char **argv)
 int	ft_save_settings(int argc, char **argv, t_sets *settings)
 {
 	if (check_numeric(argv))
-	{
-		printf("Arguments should be only unsigned int\n");
-		return (1);
-	}
+		return (UNSERR);
 	else
 	{
 		settings->philos_count = ft_atoi(argv[1]);
@@ -74,14 +71,10 @@ int	ft_save_settings(int argc, char **argv, t_sets *settings)
 			settings->should_eat_times = ft_atoi(argv[5]);
 		else
 			settings->should_eat_times = -1;
-		// settings->time = ft_get_time_ms();
 		if (!settings->should_eat_times || !settings->time_to_die || \
 			!settings->time_to_eat || !settings->time_to_sleep || \
 			!settings->philos_count)
-		{
-			printf("Arguments should be more than zero\n");
-			return (0);
-		}
+			return (ZERERR);
 		return (0);
 	}
 }

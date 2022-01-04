@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_philo_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:06:48 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/02 21:19:30 by zu               ###   ########.fr       */
+/*   Updated: 2022/01/04 15:57:14 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,27 @@ int	ft_forks_destroy(t_sets	*settings)
 
 int	main(int argc, char **argv)
 {
-	t_sets			settings;
-	t_phs			*phils;
+	t_sets	settings;
+	t_phs	*phils;
+	int		err_code;
 
+	err_code = -1;
 	if (argc <= 4 || argc >= 7)
-	{
-		printf("Check arguments quantity and try again\n");
-		return (1);
-	}
-	if (ft_save_settings(argc, argv, &settings))
-		return (1);
+		return (ft_print_err(err_code));
+	err_code = ft_save_settings(argc, argv, &settings);
+	if (err_code)
+		return (ft_print_err(err_code));
 	phils = malloc(sizeof(t_phs) * settings.philos_count);
 	if (!phils)
-		return (1);
-	if (ft_init_phils(&settings, phils))
-		return (1);
-	if (ft_init_forks(&settings, phils))
-		ft_exit(1, phils);
-	if (ft_phils_threads(&settings, phils))
-		ft_exit(1, phils);
+		return (ft_print_err(MALERR));
+	err_code = ft_init_phils(&settings, phils);
+	if (err_code)
+		return (ft_print_err(PHIERR));
+	err_code = ft_init_forks(&settings, phils);
+	if (err_code)
+		return (ft_print_err(err_code));
+	err_code = ft_table(&settings, phils);
+	if (err_code)
+		return (ft_print_err(err_code));
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_phils_threads.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 13:51:28 by zu                #+#    #+#             */
-/*   Updated: 2022/01/02 23:36:54 by zu               ###   ########.fr       */
+/*   Updated: 2022/01/04 15:59:54 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ void	ft_print_state(t_phs *curr_phil, int state)
 static void	*ft_simulation(void *phil)
 {
 	t_phs	*curr_phil;
-	int		eat_times;
 
 	curr_phil = (t_phs *)phil;
-	eat_times = curr_phil->settings->should_eat_times;
 	while (1)
 	{
 		if (pthread_mutex_lock(curr_phil->mutex_left_f) == 0 && \
@@ -61,42 +59,57 @@ static void	*ft_simulation(void *phil)
 			pthread_mutex_unlock(curr_phil->mutex_left_f);
 			pthread_mutex_unlock(curr_phil->mutex_right_f);
 		}
-		ft_my_sleep_ms(curr_phil->settings->time_to_eat);
 		ft_print_state(curr_phil, SLEEP);
 		ft_my_sleep_ms(curr_phil->settings->time_to_sleep);
 		ft_print_state(curr_phil, THINK);
+		if (curr_phil->already_ate == curr_phil->settings->should_eat_times)
+		{
+			printf(">>> philosopher #%d already ate %d times\n", \
+				curr_phil->order, curr_phil->already_ate);
+			break ;
+		}
 	}
 	return (0);
 }
 
-int	ft_phils_threads(t_sets *settings, t_phs *phils)
+int	ft_threads(t_sets *settings, t_phs *phils)
 {
-	pthread_t	*phils_thread;
 	int			i;
+	int			j;
+	pthread_t	*phils_thread;
 
 	i = 0;
+	j = 0;
 	phils_thread = malloc(sizeof(pthread_t) * settings->philos_count);
 	if (!phils_thread)
 		return (1);
-	settings->time = ft_get_time_ms();
 	while (i < settings->philos_count)
 	{
 		if (pthread_create(&phils_thread[i], NULL, \
 			ft_simulation, (void *)&phils[i]))
 			return (1);
+		usleep(10);
 		i++;
 	}
-	i = 0;
-	while (i < settings->philos_count)
+	while (j < settings->philos_count)
 	{
-		if (pthread_detach(phils_thread[i]))
+		if (pthread_detach(phils_thread[j]))
 			return (1);
-		i++;
+		j++;
 	}
+	settings->phs_threads = phils_thread;
+	return (0);
+}
+
+int	ft_table(t_sets *settings, t_phs *phils)
+{
+	settings->time = ft_get_time_ms();
+	if (ft_threads(settings, phils) != 0)
+		return (THRERR);
 	if (ft_watcher(phils) != 0)
-		ft_exit(1, phils);
+		return (THRERR);
+	free(settings->phs_threads);
 	if (ft_forks_destroy(settings) != 0)
-		ft_exit(1, phils);
-	free(phils_thread);
+		return (FORERR);
 	return (0);
 }
