@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_save_settings.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:25 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/04 15:55:35 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/04 23:45:54 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	ft_save_settings(int argc, char **argv, t_sets *settings)
 			!settings->time_to_eat || !settings->time_to_sleep || \
 			!settings->philos_count)
 			return (ZERERR);
+		settings->stop_flag = 0;
 		return (0);
 	}
 }

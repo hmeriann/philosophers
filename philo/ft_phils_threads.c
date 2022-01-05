@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 13:51:28 by zu                #+#    #+#             */
-/*   Updated: 2022/01/04 20:08:46 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/05 12:12:22 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	*ft_simulation(void *phil)
 	t_phs	*curr_phil;
 
 	curr_phil = (t_phs *)phil;
-	while (1)
+	while (curr_phil->settings->stop_flag == 0)
 	{
 		if (pthread_mutex_lock(curr_phil->mutex_left_f) == 0 && \
 			pthread_mutex_lock(curr_phil->mutex_right_f) == 0)
@@ -28,15 +28,12 @@ static void	*ft_simulation(void *phil)
 			pthread_mutex_unlock(curr_phil->mutex_left_f);
 			pthread_mutex_unlock(curr_phil->mutex_right_f);
 		}
-		ft_print_state(curr_phil, SLEEP);
-		ft_my_sleep_ms(curr_phil->settings->time_to_sleep);
-		ft_print_state(curr_phil, THINK);
-		// if (curr_phil->already_ate == curr_phil->settings->should_eat_times)
-		// {
-		// 	printf(">>> philosopher #%d already ate %d times\n", \
-		// 		curr_phil->order, curr_phil->already_ate);
-		// 	break ;
-		// }
+		if (curr_phil->is_dead == 0)
+		{
+			ft_print_state(curr_phil, SLEEP);
+			ft_my_sleep_ms(curr_phil->settings->time_to_sleep);
+			ft_print_state(curr_phil, THINK);
+		}
 	}
 	return (NULL);
 }
@@ -52,10 +49,10 @@ int	ft_threads(t_sets *settings, t_phs *phils)
 		return (MALERR);
 	while (i < settings->philos_count)
 	{
+		usleep(100);
 		if (pthread_create(&phils_thread[i], NULL, \
 			ft_simulation, (void *)&phils[i]))
 			return (THRERR);
-		usleep(1);
 		i++;
 	}
 	i = 0;
@@ -77,11 +74,15 @@ int	ft_at_the_table(t_sets *settings, t_phs *phils)
 	err_code = ft_threads(settings, phils);
 	if (err_code)
 		return (err_code);
-	// (err_code = ft_watcher(phils));
-	// if (err_code)
-	// 	return (err_code);
-	free(settings->phs_threads);
-	if (ft_forks_destroy(settings) != 0)
-		return (FORERR);
+	(err_code = ft_watcher(phils));
+	if (err_code != 0)
+		return (err_code);
+	else if (err_code)
+	{
+		free(settings->phs_threads);
+		if (ft_forks_destroy(settings) != 0)
+			return (FORERR);
+		return (0);
+	}
 	return (0);
 }

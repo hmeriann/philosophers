@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/04 20:06:25 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/05 12:12:32 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_phs
 	int				order_l_fork;
 	int				order_r_fork;
 	int				already_ate;
+	int				is_dead;
 	pthread_mutex_t	*mutex_left_f;
 	pthread_mutex_t	*mutex_right_f;
 	pthread_t		*phils_thread;
@@ -60,6 +61,7 @@ typedef struct s_sets
 	int				simulation_end;
 	int				did_eat_times;
 	int				time;
+	int				stop_flag;
 	pthread_t		*phs_threads;
 }	t_sets;
 
@@ -80,5 +82,6 @@ void	ft_phil_eats(t_phs	*curr_phil);
 int		ft_forks_destroy(t_sets	*settings);
 int		ft_watcher(t_phs *phils);
 void	*ft_watching(void *phil);
+void	ft_print_state(t_phs *curr_phil, int state);
 
 #endif
