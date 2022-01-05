@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 19:19:01 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/05 14:13:05 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/05 15:38:46 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_print_state(t_phs *curr_phil, int state)
 {
-	int		time_spent;
+	int	time_spent;
 
 	if (pthread_mutex_lock((curr_phil->settings->print)) == 0)
 	{

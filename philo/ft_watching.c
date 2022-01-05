@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 21:26:58 by zu                #+#    #+#             */
-/*   Updated: 2022/01/05 12:12:26 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:19:57 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	*ft_watching(void *phil)
 
 	curr_phil = (t_phs *)phil;
 	phils_count = curr_phil->settings->philos_count;
-	while (curr_phil->settings->stop_flag == 0)
+	while (1)
 	{
 		i = 0;
 		while (i < phils_count)

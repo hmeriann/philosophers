@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_save_settings.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:25 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/04 23:45:54 by zu               ###   ########.fr       */
+/*   Updated: 2022/01/05 15:27:58 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ int	ft_save_settings(int argc, char **argv, t_sets *settings)
 			!settings->philos_count)
 			return (ZERERR);
 		settings->stop_flag = 0;
+		settings->print = malloc(sizeof(pthread_mutex_t) * 1);
+		settings->check_dead = malloc(sizeof(pthread_mutex_t) * 1);
+		if (!(settings->print) || !(settings->check_dead))
+			return (MALERR);
 		return (0);
 	}
 }

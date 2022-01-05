@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 13:51:28 by zu                #+#    #+#             */
-/*   Updated: 2022/01/05 12:12:22 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:51:59 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	*ft_simulation(void *phil)
 	t_phs	*curr_phil;
 
 	curr_phil = (t_phs *)phil;
-	while (curr_phil->settings->stop_flag == 0)
+	while (1)
 	{
 		if (pthread_mutex_lock(curr_phil->mutex_left_f) == 0 && \
 			pthread_mutex_lock(curr_phil->mutex_right_f) == 0)
@@ -49,7 +49,6 @@ int	ft_threads(t_sets *settings, t_phs *phils)
 		return (MALERR);
 	while (i < settings->philos_count)
 	{
-		usleep(100);
 		if (pthread_create(&phils_thread[i], NULL, \
 			ft_simulation, (void *)&phils[i]))
 			return (THRERR);
@@ -66,11 +65,51 @@ int	ft_threads(t_sets *settings, t_phs *phils)
 	return (0);
 }
 
+// static void	*ft_check_eat_times(void *settings)
+// {
+// 	t_sets	*tmp_sets;
+// 	int		phils_count;
+// 	int		i;
+
+// 	tmp_sets = (t_sets *)settings;
+// 	phils_count = tmp_sets->philos_count;
+// 	while (tmp_sets->should_eat_times < )
+// 	{
+
+// 	}
+// 	return (NULL);
+// }
+
 int	ft_at_the_table(t_sets *settings, t_phs *phils)
 {
-	int	err_code;
+	int			err_code;
+	int			i = 0;
+	// pthread_t	main_thread;
 
 	settings->time = ft_get_time_ms();
+	while (i < settings->philos_count)
+	{
+		settings->philo[i].last_eat_time = settings->time;
+		i++;
+	}
+	// if (settings->should_eat_times > 0)
+	// {
+	// 	if (pthread_create(&main_thread, NULL, &ft_check_eat_times, settings))
+	// 		return (THRERR);
+	// 	if (pthread_detach(main_thread))
+	// 		return (THRERR);
+	// }
+	// i = 0;
+	// while (i < settings->philos_count)
+	// {
+	// 	if (pthread_create(&main_thread[i], NULL, \
+	// 		ft_simulation, (void *)&phils[i]))
+	// 		return (THRERR);
+	// 	if (pthread_detach(main_thread))
+	// 		return (THRERR);
+	// 	i++;
+	// 	usleep(50);
+	// }
 	err_code = ft_threads(settings, phils);
 	if (err_code)
 		return (err_code);

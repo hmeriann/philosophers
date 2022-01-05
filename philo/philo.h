@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/05 14:13:24 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/05 15:30:28 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define SLEEP	3
 # define THINK	4
 # define DIE	5
+# define STOP	6
 # define ARGERR	-1
 # define UNSERR	-2
 # define ZERERR	-3
@@ -41,11 +42,11 @@ typedef struct s_phs
 	int				order_r_fork;
 	int				already_ate;
 	int				is_dead;
+	int				last_eat_time;
+	pthread_t		*phils_thread;
+	struct s_sets	*settings;
 	pthread_mutex_t	*mutex_left_f;
 	pthread_mutex_t	*mutex_right_f;
-	pthread_t		*phils_thread;
-	int				last_eat_time;
-	struct s_sets	*settings;
 }	t_phs;
 
 typedef struct s_sets
@@ -55,13 +56,14 @@ typedef struct s_sets
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				should_eat_times;
-	t_phs			*philo;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	*print;
 	int				simulation_end;
 	int				did_eat_times;
 	int				time;
 	int				stop_flag;
+	t_phs			*philo;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	*print;
+	pthread_mutex_t	*check_dead;
 	pthread_t		*phs_threads;
 }	t_sets;
 
