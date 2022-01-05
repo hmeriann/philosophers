@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 13:51:28 by zu                #+#    #+#             */
-/*   Updated: 2022/01/04 16:37:54 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/04 20:08:46 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int	ft_at_the_table(t_sets *settings, t_phs *phils)
 	err_code = ft_threads(settings, phils);
 	if (err_code)
 		return (err_code);
-	(err_code = ft_watcher(phils));
-	if (err_code)
-		return (err_code);
+	// (err_code = ft_watcher(phils));
+	// if (err_code)
+	// 	return (err_code);
 	free(settings->phs_threads);
 	if (ft_forks_destroy(settings) != 0)
 		return (FORERR);
