@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 19:19:01 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/04 16:38:03 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/05 14:13:05 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_print_state(t_phs *curr_phil, int state)
 			printf("%d ms philosopher #%d has taken a fork\n", \
 				time_spent, curr_phil->order);
 		if (state == EAT)
-			printf("%d ms philosopher #%d is eating\n", \
+			printf("\x1b[34m%d ms philosopher #%d is eating\n\x1b[0m", \
 				time_spent, curr_phil->order);
 		if (state == SLEEP)
 			printf("%d ms philosopher #%d is sleeping\n", \
@@ -32,7 +32,7 @@ void	ft_print_state(t_phs *curr_phil, int state)
 			printf("%d ms philosopher #%d is thinking\n", \
 				time_spent, curr_phil->order);
 		if (state == DIE)
-			printf("%d ms philosopher #%d died\n", \
+			printf("\x1b[31m%d ms philosopher #%d died\n\x1b[0m", \
 				time_spent, curr_phil->order);
 		pthread_mutex_unlock((curr_phil->settings->print));
 	}
