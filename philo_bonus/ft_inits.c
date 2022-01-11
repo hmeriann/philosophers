@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_time_bonus.c                                    :+:      :+:    :+:   */
+/*   ft_inits.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 23:20:49 by zu                #+#    #+#             */
-/*   Updated: 2022/01/11 19:58:03 by hmeriann         ###   ########.fr       */
+/*   Created: 2022/01/11 17:33:57 by hmeriann          #+#    #+#             */
+/*   Updated: 2022/01/11 18:21:47 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_bonus.h"
+#include "philo_bonus/philo_bonus.h"
 
-int	ft_get_time_ms_bonus(void)
+int	init_pid(t_sets *settings)
 {
-	struct timeval	t;
+	int	i;
 
-	gettimeofday(&t, NULL);
-	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
+	i = 0;
+	settings->pid = (int *)malloc(sizeof(int) * settings->philos_count);
+	if (!settings->pid)
+		return (MALERR);
+	while (i < settings->philos_count)
+	{
+		settings->pid[i] = 0;
+		i++;
+	}
+	return (0);
 }
 
-void	ft_my_sleep_ms_bonus(int time)
+int	init_phils(t_sets *settings)
 {
-	long	goal_time;
-	long	curr_time;
 
-	curr_time = ft_get_time_ms_bonus();
-	goal_time = ft_get_time_ms_bonus() + (long)time;
-	while (curr_time < goal_time)
-	{
-		usleep(50);
-		curr_time = ft_get_time_ms_bonus();
-	}
 }

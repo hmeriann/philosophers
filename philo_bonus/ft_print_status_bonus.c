@@ -6,11 +6,11 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 19:19:01 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/04 16:38:17 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/11 19:59:14 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 void	ft_print_state_bonus(t_phs *curr_phil, int state)
 {
