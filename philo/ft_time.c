@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 23:20:49 by zu                #+#    #+#             */
-/*   Updated: 2021/12/30 19:17:34 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/11 18:55:36 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_my_sleep_ms(int time)
 	goal_time = ft_get_time_ms() + (long)time;
 	while (curr_time < goal_time)
 	{
-		usleep(50);
+		usleep(30);
 		curr_time = ft_get_time_ms();
 	}
 }

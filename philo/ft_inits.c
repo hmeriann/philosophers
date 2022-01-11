@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 15:00:11 by zu                #+#    #+#             */
-/*   Updated: 2022/01/05 15:27:24 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/11 15:26:16 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_init_forks(t_sets *settings, t_phs *phils)
 	pthread_mutex_t	*forks;
 
 	forks = malloc(sizeof(pthread_mutex_t) * settings->philos_count);
-	if (!forks || !(settings->print) || !(settings->check_dead))
+	if (!forks)
 		return (MALERR);
 	i = 0;
 	if (pthread_mutex_init(settings->check_dead, NULL) || \

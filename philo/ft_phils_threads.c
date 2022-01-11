@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 13:51:28 by zu                #+#    #+#             */
-/*   Updated: 2022/01/05 17:51:59 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/11 19:11:26 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,51 +65,18 @@ int	ft_threads(t_sets *settings, t_phs *phils)
 	return (0);
 }
 
-// static void	*ft_check_eat_times(void *settings)
-// {
-// 	t_sets	*tmp_sets;
-// 	int		phils_count;
-// 	int		i;
-
-// 	tmp_sets = (t_sets *)settings;
-// 	phils_count = tmp_sets->philos_count;
-// 	while (tmp_sets->should_eat_times < )
-// 	{
-
-// 	}
-// 	return (NULL);
-// }
-
 int	ft_at_the_table(t_sets *settings, t_phs *phils)
 {
-	int			err_code;
-	int			i = 0;
-	// pthread_t	main_thread;
+	int	err_code;
+	int	i;
 
+	i = 0;
 	settings->time = ft_get_time_ms();
 	while (i < settings->philos_count)
 	{
 		settings->philo[i].last_eat_time = settings->time;
 		i++;
 	}
-	// if (settings->should_eat_times > 0)
-	// {
-	// 	if (pthread_create(&main_thread, NULL, &ft_check_eat_times, settings))
-	// 		return (THRERR);
-	// 	if (pthread_detach(main_thread))
-	// 		return (THRERR);
-	// }
-	// i = 0;
-	// while (i < settings->philos_count)
-	// {
-	// 	if (pthread_create(&main_thread[i], NULL, \
-	// 		ft_simulation, (void *)&phils[i]))
-	// 		return (THRERR);
-	// 	if (pthread_detach(main_thread))
-	// 		return (THRERR);
-	// 	i++;
-	// 	usleep(50);
-	// }
 	err_code = ft_threads(settings, phils);
 	if (err_code)
 		return (err_code);

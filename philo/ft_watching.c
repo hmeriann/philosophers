@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 21:26:58 by zu                #+#    #+#             */
-/*   Updated: 2022/01/05 17:19:57 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/11 19:05:55 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_monitor(t_phs *curr_phil, int phils_count, int i)
 	time_delta = ft_get_time_ms() - curr_phil[i].last_eat_time;
 	if (time_delta > curr_phil[i].settings->time_to_die)
 	{
+		usleep(1000);
 		ft_print_state(curr_phil, DIE);
 		curr_phil->settings->stop_flag = 1;
 		curr_phil->is_dead = 1;

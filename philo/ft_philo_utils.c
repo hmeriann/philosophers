@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:20:28 by hmeriann          #+#    #+#             */
-/*   Updated: 2021/12/30 18:47:28 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/11 19:10:09 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ static int	ft_isdigit(int c)
 		return (0);
 }
 
-// static int	max_min_handling(long long res, int sign)
-// {
-// 	if (res > 2147483647)
-// 	{
-// 		if (sign == 0)
-// 			return (-1);
-// 		return (0);
-// 	}
-// 	return (1);
-// }
+static int	max_min_handling(long long res, int sign)
+{
+	if (res > 2147483647)
+	{
+		if (sign == 0)
+			return (-1);
+		return (0);
+	}
+	return (1);
+}
 
 int	ft_atoi(const char *str)
 {
@@ -49,8 +49,8 @@ int	ft_atoi(const char *str)
 	{
 		if (ft_isdigit(str[i]))
 		{
-			// if (max_min_handling(res, sign) != 1)
-			// 	return (max_min_handling(res, sign));
+			if (max_min_handling(res, sign) != 1)
+				return (max_min_handling(res, sign));
 			res = 10 * res + (str[i] - '0');
 		}
 		i++;
