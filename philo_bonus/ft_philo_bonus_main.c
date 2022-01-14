@@ -3,77 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   ft_philo_bonus_main.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:06:48 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/11 19:59:04 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/13 19:01:36 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-int	ft_inits(t_sets *settings, t_phs *phils)
+void	ft_init_one_ph(t_sets *settings, t_phs *phils, int i)
 {
-	int	err_code;
+	settings->time = ft_get_time_ms_bonus();
+	phils[i]->pos_in_arr = i;
+	phils[i]->pos_in_arr = i;
+	phils[i]->fork = settings->forks;
+	phils[i]->settings = settings;
+	phils[i]->time_to_be_hungry = settings->time;
+	if (settings->should_eat_times)
+		phils[i]->already_ate = 0;
+}
 
-	err_code = 0;
-	if (init_pid(&settings))
-		return (err_code = PIDERR);
-	if (init_phils(&settings, &phils))
-		return (err_code = PHIERR);
-	if (init_sems(&settings))
-		return (err_code = SEMERR);
-	return (err_code);
+int	ft_make_philos(t_sets *settings, t_phs *phils)
+{
+	int	i;
+
+	i = 0;
+	while (i < settings->philos_count)
+	{
+		phils[i] = malloc(sizeof(t_phs));
+		phils[i]->pid = fork();
+		if (phils[i]->pid < 0)
+			return (FORERR);
+		if (!phils[i]->pid)
+		{
+			// ft_init_one_ph(settings, phils, i);
+			ft_philo_life(&phils[i]);
+			exit(0);
+		}
+		i++;
+	}
+	return (0);
 }
 
 int	ft_inits_ph(t_sets *settings)
 {
 	t_phs	**phils;
-	int		i;
 	int		j;
 	int		status;
-	int		pid;
 
-	i = 0;
-	phils = malloc(sizeof(t_phs *) * settings->philos_count);
-	ft_sem_init(settings);
-	while (i < settings->philos_count)
-	{
-		pid = fork();
-		if (pid < 0)
-			return (FORERR);
-		settings->time = ft_get_time_ms_bonus();
-		phils[i] = malloc(sizeof(t_phs) * settings->philos_count);
-		phils[i]->pid = pid;
-		if (!pid)
-		{
-			phils[i]->pos_in_arr = i;
-			phils[i]->pos_in_arr = i;
-			phils[i]->fork = settings->forks;
-			phils[i]->settings = settings;
-			if (settings->should_eat_times)
-				phils[i]->already_ate = 0;
-			ft_philo_life(phils[i]);
-			exit(0);
-		}
-		i++;
-	}
-	i = 0;
 	j = 0;
-	while (j < settings->philos_count)
-	{
-		if (waitpid(-1, &status, 0) < 0)
-			return (SIGERR);
-		if (WIFEXITED(status) == 1)
-		{
-			while (i < settings->philos_count)
-			{
-				kill(phils[i]->pid, SIGKILL);
-				i++;
-			}
-		j++;
-		}
-	}
+	phils = malloc(sizeof(t_phs) * settings->philos_count);
+	if (!phils)
+		return (MALERR);
+	ft_init_all_ph(settings);
+	ft_init_sem(settings);
+	ft_make_philos(settings, phils);
+	ft_wait_and_kill(settings, phils);
+	sem_close(settings->print);
+	sem_close(settings->check_dead);
+	sem_close(settings->forks);
 	free(phils);
 	return (0);
 }
@@ -92,11 +81,12 @@ int	main(int argc, char **argv)
 	err_code = ft_inits_ph(&settings);
 	if (err_code)
 		return (ft_print_err_bonus(err_code));
-	err_code = ft_start_process(&settings);
-	if (err_code)
-		return (ft_print_err_bonus(err_code));
-	sem_wait(settings.check_dead);
-	settings.isdead = 1;
-	ft_destroy_sem(&settings);
+	// err_code = ft_start_process(&settings);
+	// if (err_code)
+	// 	return (ft_print_err_bonus(err_code));
+	// sem_wait(settings.check_dead);
+	// settings.isdead = 1;
+	// ft_destroy_sem(&settings);
+	
 	return (0);
 }

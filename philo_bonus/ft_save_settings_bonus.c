@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_save_settings_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:25 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/11 19:58:00 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/12 15:01:22 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_csearch_bonus(char *haystack, char needle, size_t len)
 		return (0);
 	i = 0;
 	k = 0;
-	j = ft_strlen(haystack);
+	j = ft_strlen_bonus(haystack);
 	while (k < len)
 	{
 		while (haystack[i] != needle && haystack[i] != '\0')
@@ -45,10 +45,10 @@ int	check_numeric_bonus(char **argv)
 	while (argv[i])
 	{
 		j = 0;
-		len = ft_strlen(argv[i]);
+		len = ft_strlen_bonus(argv[i]);
 		while (argv[i][j] != '\0')
 		{
-			if (ft_csearch("0123456789", argv[i][j], len))
+			if (ft_csearch_bonus("0123456789", argv[i][j], len))
 				return (1);
 			j++;
 		}
@@ -59,22 +59,23 @@ int	check_numeric_bonus(char **argv)
 
 int	ft_save_settings_bonus(int argc, char **argv, t_sets *settings)
 {
-	if (check_numeric(argv))
+	if (check_numeric_bonus(argv))
 		return (UNSERR);
 	else
 	{
-		settings->philos_count = ft_atoi(argv[1]);
-		settings->time_to_die = ft_atoi(argv[2]);
-		settings->time_to_eat = ft_atoi(argv[3]);
-		settings->time_to_sleep = ft_atoi(argv[4]);
+		settings->philos_count = ft_atoi_bonus(argv[1]);
+		settings->time_to_die = ft_atoi_bonus(argv[2]);
+		settings->time_to_eat = ft_atoi_bonus(argv[3]);
+		settings->time_to_sleep = ft_atoi_bonus(argv[4]);
 		if (argc == 6)
-			settings->should_eat_times = ft_atoi(argv[5]);
+			settings->should_eat_times = ft_atoi_bonus(argv[5]);
 		else
 			settings->should_eat_times = -1;
 		if (!settings->should_eat_times || !settings->time_to_die || \
 			!settings->time_to_eat || !settings->time_to_sleep || \
 			!settings->philos_count)
 			return (ZERERR);
+		settings->stop_flag = 0;
 		return (0);
 	}
 }

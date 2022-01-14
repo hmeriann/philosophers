@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/11 19:53:09 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/13 19:02:08 by zu               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,10 @@ typedef struct s_phs
 	int				pos_in_arr;
 	int				order;
 	int				pid;
-	int				fork;
 	int				already_ate;
-	pthread_mutex_t	*mutex_left_f;
-	pthread_mutex_t	*mutex_right_f;
-	pthread_t		*phils_thread;
 	int				last_eat_time;
+	int				time_to_be_hungry;
+	// sem_t			*fork;
 	struct s_sets	*settings;
 }	t_phs;
 
@@ -67,31 +65,37 @@ typedef struct s_sets
 	int		simulation_end;
 	int		did_eat_times;
 	int		time;
+	int		stop_flag;
 	int		*pid;
 	int		isdead;
-	t_phs	*philo;
+	// t_phs	*philo;
 	sem_t	*forks;
 	sem_t	*print;
 	sem_t	*check_dead;
-	sem_t	*phs_threads;
+	sem_t	*taking;
 }	t_sets;
 
-int		ft_atoi_bonus(const char *str);
+int		ft_make_all_phils(t_sets *settings, t_phs **philo);
+void	ft_init_sem(t_sets *settings);
+int		ft_init_phils(t_sets *settings);
+int		ft_inits(t_sets *settings, t_phs *phils);
+int		ft_init_ph(t_sets *settings);
+void	ft_init_one_ph(t_sets *settings, t_phs *phils, int i);
+int		ft_make_philos(t_sets *settings, t_phs *phils);
+int		ft_inits_ph(t_sets *settings);
+void	ft_take_forks_and_eat(t_phs *phil);
+void	*ft_philo_life(void	*philo);
 int		ft_print_err_bonus(int err_code);
-size_t	ft_strlen_bonus(char *str);
+void	ft_print_state_bonus(t_phs *curr_phil, int state);
 int		ft_csearch_bonus(char *haystack, char needle, size_t len);
 int		check_numeric_bonus(char **argv);
 int		ft_save_settings_bonus(int argc, char **argv, t_sets *table);
-void	ft_prepare_simulation_bonus(t_sets *table);
+int		ft_wait_and_kill(t_sets *settings, t_phs **philo);
 int		ft_get_time_ms_bonus(void);
-int		ft_inits(t_sets *settings, t_phs *phils);
-int		ft_at_the_table_bonus(t_sets *settings, t_phs *phils);
 void	ft_my_sleep_ms_bonus(int time);
-void	ft_print_state_bonus(t_phs *curr_phil, int state);
-void	ft_phil_eats_bonus(t_phs *curr_phil);
-int		ft_destroy_sem(t_sets *settings);
-int		ft_watcher_bonus(t_phs *phils);
-void	*ft_watching_bonus(void *phil);
-int		init_pid(t_sets *settings);
+int		ft_watch_bns(t_phs *phil);
+void	*check_if_dead(void *phils);
+int		ft_atoi_bonus(const char *str);
+size_t	ft_strlen_bonus(char *str);
 
 #endif
