@@ -1,12 +1,14 @@
 NAME =	philo_bonus
 
-SRC =	ft_philo_bonus_main.c ft_sig_sem_time.c ft_philo_life.c ft_philo_utils_bonus.c \
-		ft_prints_bonus.c ft_save_settings_bonus.c ft_watcher_bonus.c\
+SRC =	ft_inits_bonus.c ft_philo_bonus_main.c	ft_philo_life.c ft_philo_utils_bonus.c \
+		ft_print_err_bonus.c ft_print_status_bonus.c ft_save_settings_bonus.c ft_sig.c \
+		ft_time_bonus.c ft_watcher_bonus.c\
 
 INCLUDES= philo_bonus.h
 
 OBJ =	$(SRC:.c=.o)
-FLAGS =	-g -Wall -Wextra -Werror -fsanitize=address
+# FLAGS =	-g -Wall -Wextra -Werror -fsanitize=address
+# FLAGS =	-g -Wall -Wextra -Werror
 
 all:	$(NAME)
 

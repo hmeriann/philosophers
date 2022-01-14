@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 10:24:34 by zu                #+#    #+#             */
-/*   Updated: 2022/01/14 17:58:46 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/14 21:17:28 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,22 @@
 
 void	ft_take_forks_and_eat(t_phs *phil)
 {
-	sem_wait(phil->settings->taking);
-	sem_wait(phil->settings->forks);
-	ft_print_state_bonus(phil, FORK);
-	sem_wait(phil->settings->forks);
-	ft_print_state_bonus(phil, FORK);
-	sem_post(phil->settings->taking);
-	ft_print_state_bonus(phil, EAT);
-	phil->time_to_be_hungry = ft_get_time_ms_bonus();
-	ft_my_sleep_ms_bonus(phil->settings->time_to_eat);
-	sem_post(phil->settings->forks);
-	sem_post(phil->settings->forks);
-	// if (phil->settings->stop_flag == 1)
-	// 	exit(0);
-	// if (phil->settings->should_eat_times && \
-	// 	phil->settings->stop_flag == 0)
-	// {
-	// 	phil->already_ate++;
-	// 	if (phil->already_ate >= phil->settings->should_eat_times)
-	// 		phil->settings->stop_flag = 1;
-	// }
+	if (!sem_wait(phil->settings->forks) || !sem_wait(phil->settings->forks))
+	{
+		ft_print_state_bonus(phil, FORK);
+		ft_print_state_bonus(phil, FORK);
+		ft_print_state_bonus(phil, EAT);
+		phil->time_to_be_hungry = ft_get_time_ms_bonus();
+		ft_my_sleep_ms_bonus(phil->settings->time_to_eat);
+		sem_post(phil->settings->forks);
+		sem_post(phil->settings->forks);
+	}
+	if (phil->settings->should_eat_times)
+	{
+		phil->already_ate++;
+		if (phil->already_ate == phil->settings->should_eat_times)
+			exit(0);
+	}
 }
 
 void	*ft_philo_life(void	*philo)
@@ -41,6 +37,8 @@ void	*ft_philo_life(void	*philo)
 	t_phs	*curr_phil;
 
 	curr_phil = philo;
+	if (((curr_phil->pos_in_arr + 1) % 2) == 0)
+		usleep(500);
 	ft_watch_bns(curr_phil);
 	while (1)
 	{
@@ -48,7 +46,6 @@ void	*ft_philo_life(void	*philo)
 		ft_print_state_bonus(curr_phil, SLEEP);
 		ft_my_sleep_ms_bonus(curr_phil->settings->time_to_sleep);
 		ft_print_state_bonus(curr_phil, THINK);
-		usleep(100);
 	}
 	return (NULL);
 }

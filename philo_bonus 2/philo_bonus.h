@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sekharjo <sekharjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/14 16:46:23 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/13 18:30:28 by sekharjo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_phs
 	int				already_ate;
 	int				last_eat_time;
 	int				time_to_be_hungry;
+	sem_t			*fork;
 	struct s_sets	*settings;
 }	t_phs;
 
@@ -67,19 +68,21 @@ typedef struct s_sets
 	int		stop_flag;
 	int		*pid;
 	int		isdead;
+	t_phs	*philo;
 	sem_t	*forks;
 	sem_t	*print;
 	sem_t	*check_dead;
-	sem_t	*taking;
+	sem_t	*phs_threads;
 }	t_sets;
 
 int		ft_make_all_phils(t_sets *settings, t_phs **philo);
 void	ft_init_sem(t_sets *settings);
 int		ft_init_phils(t_sets *settings);
 int		ft_inits(t_sets *settings, t_phs *phils);
-void	ft_init_all_ph(t_sets *settings, t_phs *phils);
+int		ft_init_ph(t_sets *settings);
+void	ft_init_one_ph(t_sets *settings, t_phs *phils, int i);
 int		ft_make_philos(t_sets *settings, t_phs *phils);
-int		ft_start_all(t_sets *settings, t_phs *phils);
+int		ft_inits_ph(t_sets *settings);
 void	ft_take_forks_and_eat(t_phs *phil);
 void	*ft_philo_life(void	*philo);
 int		ft_print_err_bonus(int err_code);
