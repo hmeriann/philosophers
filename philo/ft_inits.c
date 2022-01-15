@@ -6,7 +6,11 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 15:00:11 by zu                #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/01/15 18:24:41 by hmeriann         ###   ########.fr       */
+=======
+/*   Updated: 2022/01/15 15:55:33 by hmeriann         ###   ########.fr       */
+>>>>>>> 38c729d7b04e862de2bb7fa814efba2a459616af
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +44,8 @@ int	ft_init_forks(t_sets *settings, t_phs *phils)
 		return (MUTERR);
 	while (i < settings->philos_count)
 	{
-		if (pthread_mutex_init(&(forks[i]), NULL))
+		if (pthread_mutex_init(&(forks[i]), NULL)) || \
+			pthread_mutex_init(phils[i].eating, NULL))
 		{
 			free(forks);
 			free(settings->print);
@@ -67,6 +72,10 @@ int	ft_init_phils(t_sets *settings, t_phs *phils)
 			settings->philos_count;
 		phils[i].already_ate = 0;
 		phils[i].settings = settings;
+		phils[i].now_is_eating = 0;
+		if (pthread_mutex_init(phils[i].eating, NULL) || \
+			pthread_mutex_init(phils[i].should_e, NULL))
+			return (MUTERR);
 		i++;
 	}
 	return (0);

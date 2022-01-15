@@ -6,7 +6,11 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/01/15 18:24:37 by hmeriann         ###   ########.fr       */
+=======
+/*   Updated: 2022/01/15 15:38:25 by hmeriann         ###   ########.fr       */
+>>>>>>> 38c729d7b04e862de2bb7fa814efba2a459616af
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +46,20 @@ typedef struct s_phs
 	int				order_r_fork;
 	int				already_ate;
 	int				last_eat_time;
+<<<<<<< HEAD
 	struct s_sets	*settings;
 	pthread_mutex_t	*mutex_left_f;
 	pthread_mutex_t	*mutex_right_f;
+=======
+	int				time_limit;
+	int				now_is_eating;
+	pthread_t		*phils_thread;
+	struct s_sets	*settings;
+	pthread_mutex_t	*mutex_left_f;
+	pthread_mutex_t	*mutex_right_f;
+	pthread_mutex_t	*eating;
+	pthread_mutex_t	*should_e;
+>>>>>>> 38c729d7b04e862de2bb7fa814efba2a459616af
 }	t_phs;
 
 typedef struct s_sets

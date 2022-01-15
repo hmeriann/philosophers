@@ -6,7 +6,11 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 19:19:01 by hmeriann          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/01/15 16:26:49 by hmeriann         ###   ########.fr       */
+=======
+/*   Updated: 2022/01/15 14:33:09 by hmeriann         ###   ########.fr       */
+>>>>>>> 38c729d7b04e862de2bb7fa814efba2a459616af
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +35,18 @@ void	ft_print_state(t_phs *curr_phil, int state)
 		if (state == THINK)
 			printf("%d ms philosopher #%d is thinking\n", \
 				time_spent, curr_phil->order);
+		pthread_mutex_unlock((curr_phil->settings->print));
 		if (state == DIE)
+		{
 			printf("\x1b[31m%d ms philosopher #%d died\n\x1b[0m", \
+<<<<<<< HEAD
 				time_spent, curr_phil->order);
 		if (state != DIE)
 			pthread_mutex_unlock((curr_phil->settings->print));
+=======
+			time_spent, curr_phil->order);
+			return ;
+		}
+>>>>>>> 38c729d7b04e862de2bb7fa814efba2a459616af
 	}
 }
