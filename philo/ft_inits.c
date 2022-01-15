@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_inits.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 15:00:11 by zu                #+#    #+#             */
-/*   Updated: 2022/01/12 10:13:14 by zu               ###   ########.fr       */
+/*   Updated: 2022/01/15 15:55:33 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	ft_init_forks(t_sets *settings, t_phs *phils)
 		return (MUTERR);
 	while (i < settings->philos_count)
 	{
-		if (pthread_mutex_init(&(forks[i]), NULL))
+		if (pthread_mutex_init(&(forks[i]), NULL)) || \
+			pthread_mutex_init(phils[i].eating, NULL))
 		{
 			free(forks);
 			free(settings->print);
@@ -70,6 +71,10 @@ int	ft_init_phils(t_sets *settings, t_phs *phils)
 		phils[i].already_ate = 0;
 		phils[i].is_dead = 0;
 		phils[i].settings = settings;
+		phils[i].now_is_eating = 0;
+		if (pthread_mutex_init(phils[i].eating, NULL) || \
+			pthread_mutex_init(phils[i].should_e, NULL))
+			return (MUTERR);
 		i++;
 	}
 	settings->philo = phils;

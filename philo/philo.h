@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/11 16:58:31 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/15 15:38:25 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,13 @@ typedef struct s_phs
 	int				already_ate;
 	int				is_dead;
 	int				last_eat_time;
+	int				time_limit;
+	int				now_is_eating;
 	pthread_t		*phils_thread;
 	struct s_sets	*settings;
 	pthread_mutex_t	*mutex_left_f;
 	pthread_mutex_t	*mutex_right_f;
+	pthread_mutex_t	*eating;
 	pthread_mutex_t	*should_e;
 }	t_phs;
 
