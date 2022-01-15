@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/14 16:46:23 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/15 18:28:49 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@
 # define SEMERR	-9
 # define PIDERR	-10
 # define SIGERR	-11
-# define SEMFORK	"sem_fork"
-# define SEMEAT		"sem_eat"
-# define SEMPRINT	"sem_print"
-# define SEMDEAD	"sem_dead"
 
 typedef struct s_phs
 {
@@ -51,6 +47,7 @@ typedef struct s_phs
 	int				already_ate;
 	int				last_eat_time;
 	int				time_to_be_hungry;
+	sem_t			*fork;
 	struct s_sets	*settings;
 }	t_phs;
 
@@ -61,25 +58,22 @@ typedef struct s_sets
 	int		time_to_eat;
 	int		time_to_sleep;
 	int		should_eat_times;
-	int		simulation_end;
-	int		did_eat_times;
 	int		time;
-	int		stop_flag;
-	int		*pid;
-	int		isdead;
+	t_phs	*philo;
 	sem_t	*forks;
+	sem_t	*taking;
 	sem_t	*print;
 	sem_t	*check_dead;
-	sem_t	*taking;
 }	t_sets;
 
 int		ft_make_all_phils(t_sets *settings, t_phs **philo);
 void	ft_init_sem(t_sets *settings);
 int		ft_init_phils(t_sets *settings);
 int		ft_inits(t_sets *settings, t_phs *phils);
-void	ft_init_all_ph(t_sets *settings, t_phs *phils);
+int		ft_init_ph(t_sets *settings);
+void	ft_init_one_ph(t_sets *settings, t_phs *phils, int i);
 int		ft_make_philos(t_sets *settings, t_phs *phils);
-int		ft_start_all(t_sets *settings, t_phs *phils);
+int		ft_inits_ph(t_sets *settings);
 void	ft_take_forks_and_eat(t_phs *phil);
 void	*ft_philo_life(void	*philo);
 int		ft_print_err_bonus(int err_code);

@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:25 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/05 15:27:58 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/15 18:25:10 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,8 @@ int	ft_save_settings(int argc, char **argv, t_sets *settings)
 			!settings->time_to_eat || !settings->time_to_sleep || \
 			!settings->philos_count)
 			return (ZERERR);
-		settings->stop_flag = 0;
 		settings->print = malloc(sizeof(pthread_mutex_t) * 1);
-		settings->check_dead = malloc(sizeof(pthread_mutex_t) * 1);
-		if (!(settings->print) || !(settings->check_dead))
+		if (!settings->print)
 			return (MALERR);
 		return (0);
 	}

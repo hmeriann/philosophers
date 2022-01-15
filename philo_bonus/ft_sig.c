@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_time.c                                          :+:      :+:    :+:   */
+/*   ft_sig.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 23:20:49 by zu                #+#    #+#             */
-/*   Updated: 2022/01/15 17:57:50 by hmeriann         ###   ########.fr       */
+/*   Created: 2022/01/12 10:22:26 by zu                #+#    #+#             */
+/*   Updated: 2022/01/14 21:11:11 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-int	ft_get_time_ms(void)
+int	ft_wait_and_kill(t_sets *settings, t_phs *philo)
 {
-	struct timeval	t;
+	int	i;
+	int	j;
+	int	status;
 
-	gettimeofday(&t, NULL);
-	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
-}
-
-void	ft_my_sleep_ms(int time)
-{
-	int	goal_time;
-	int	curr_time;
-
-	curr_time = ft_get_time_ms();
-	goal_time = ft_get_time_ms() + time;
-	while (curr_time < goal_time)
+	i = 0;
+	while (i < settings->philos_count)
 	{
-		usleep(100);
-		curr_time = ft_get_time_ms();
+		if (waitpid(-1, &status, 0) < 0)
+			return (PIDERR);
+		if (WIFEXITED(status) == 1)
+		{
+			j = 0;
+			while (j < settings->philos_count)
+			{
+				kill(philo[j].pid, SIGKILL);
+				j++;
+			}
+		}
+		i++;
 	}
+	return (0);
 }

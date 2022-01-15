@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_save_settings_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:58:25 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/12 15:01:22 by zu               ###   ########.fr       */
+/*   Updated: 2022/01/15 18:27:25 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	ft_save_settings_bonus(int argc, char **argv, t_sets *settings)
 			!settings->time_to_eat || !settings->time_to_sleep || \
 			!settings->philos_count)
 			return (ZERERR);
-		settings->stop_flag = 0;
 		return (0);
 	}
 }

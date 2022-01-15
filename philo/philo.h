@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 16:59:19 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/11 16:58:31 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/15 18:24:37 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,10 @@ typedef struct s_phs
 	int				order_l_fork;
 	int				order_r_fork;
 	int				already_ate;
-	int				is_dead;
 	int				last_eat_time;
-	pthread_t		*phils_thread;
 	struct s_sets	*settings;
 	pthread_mutex_t	*mutex_left_f;
 	pthread_mutex_t	*mutex_right_f;
-	pthread_mutex_t	*should_e;
 }	t_phs;
 
 typedef struct s_sets
@@ -57,14 +54,9 @@ typedef struct s_sets
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				should_eat_times;
-	int				simulation_end;
-	int				did_eat_times;
 	int				time;
-	int				stop_flag;
-	t_phs			*philo;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*print;
-	pthread_mutex_t	*check_dead;
 	pthread_t		*phs_threads;
 }	t_sets;
 
@@ -81,7 +73,6 @@ int		ft_init_forks(t_sets *settings, t_phs *phils);
 int		ft_at_the_table(t_sets *settings, t_phs *phils);
 void	ft_my_sleep_ms(int time);
 void	ft_print_state(t_phs *curr_phil, int state);
-void	ft_phil_eats(t_phs	*curr_phil);
 int		ft_forks_destroy(t_sets	*settings);
 int		ft_watcher(t_phs *phils);
 void	*ft_watching(void *phil);

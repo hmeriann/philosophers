@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_inits.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zu <zu@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 15:00:11 by zu                #+#    #+#             */
-/*   Updated: 2022/01/12 10:13:14 by zu               ###   ########.fr       */
+/*   Updated: 2022/01/15 18:24:41 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static void	giving_forks(t_sets *settings, t_phs *phils)
 	i = 0;
 	while (i < settings->philos_count)
 	{
-		settings->philo[i].mutex_left_f = \
+		phils[i].mutex_left_f = \
 				&settings->forks[phils[i].order_l_fork];
-		settings->philo[i].mutex_right_f = \
+		phils[i].mutex_right_f = \
 				&settings->forks[phils[i].order_r_fork];
 		i++;
 	}
@@ -36,8 +36,7 @@ int	ft_init_forks(t_sets *settings, t_phs *phils)
 	if (!forks)
 		return (MALERR);
 	i = 0;
-	if (pthread_mutex_init(settings->check_dead, NULL) || \
-			pthread_mutex_init(settings->print, NULL))
+	if (pthread_mutex_init(settings->print, NULL))
 		return (MUTERR);
 	while (i < settings->philos_count)
 	{
@@ -45,7 +44,6 @@ int	ft_init_forks(t_sets *settings, t_phs *phils)
 		{
 			free(forks);
 			free(settings->print);
-			free(settings->check_dead);
 			return (FORERR);
 		}
 		i++;
@@ -68,10 +66,8 @@ int	ft_init_phils(t_sets *settings, t_phs *phils)
 		phils[i].order_r_fork = (phils[i].pos_in_arr + 1) % \
 			settings->philos_count;
 		phils[i].already_ate = 0;
-		phils[i].is_dead = 0;
 		phils[i].settings = settings;
 		i++;
 	}
-	settings->philo = phils;
 	return (0);
 }

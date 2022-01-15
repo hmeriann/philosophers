@@ -6,7 +6,7 @@
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 19:19:01 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/05 15:38:46 by hmeriann         ###   ########.fr       */
+/*   Updated: 2022/01/15 16:26:49 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	ft_print_state(t_phs *curr_phil, int state)
 		if (state == DIE)
 			printf("\x1b[31m%d ms philosopher #%d died\n\x1b[0m", \
 				time_spent, curr_phil->order);
-		pthread_mutex_unlock((curr_phil->settings->print));
+		if (state != DIE)
+			pthread_mutex_unlock((curr_phil->settings->print));
 	}
-	else
-		pthread_mutex_unlock((curr_phil->settings->print));
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sig_sem_time.c                                  :+:      :+:    :+:   */
+/*   ft_time_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmeriann <hmeriann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/11 17:33:57 by hmeriann          #+#    #+#             */
-/*   Updated: 2022/01/14 17:32:55 by hmeriann         ###   ########.fr       */
+/*   Created: 2021/12/23 23:20:49 by zu                #+#    #+#             */
+/*   Updated: 2022/01/11 19:58:03 by hmeriann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,4 @@ void	ft_my_sleep_ms_bonus(int time)
 		usleep(50);
 		curr_time = ft_get_time_ms_bonus();
 	}
-}
-
-int	ft_wait_and_kill(t_sets *settings, t_phs *philo)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < settings->philos_count)
-	{
-		if (waitpid(0, NULL, 0) < 0)
-			return (PIDERR);
-		j = 0;
-		while (j < settings->philos_count)
-		{
-			kill(philo[j].pid, SIGKILL);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-void	ft_init_sem(t_sets *settings)
-{
-	sem_unlink("fork");
-	sem_unlink("print");
-	sem_unlink("death");
-	sem_unlink("taking");
-	settings->forks = sem_open("fork", O_CREAT, 0777, settings->philos_count);
-	settings->print = sem_open("print", O_CREAT, 0777, 1);
-	settings->check_dead = sem_open("death", O_CREAT, 0777, 1);
-	settings->taking = sem_open("taking", O_CREAT, 0777, 1);
 }
